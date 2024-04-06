@@ -1,25 +1,31 @@
+let i;
+
 function diamantCarre(tabSize, minValue, maxValue){
   let t = initArray(tabSize, minValue, maxValue);
+  
+  i = tabSize - 1;
+  while(i > 1){
+    let id = Math.floor(i / 2);
 
-  diamant(t, tabSize, size);
-  carre(t, tabSize, size);
+    diamant(id, tabSize, t)
+
+    i = id
+  }
 
   return t;
 }
 
-function diamant(t, sizeTab, size){
-  
-  for(let x = 0; x < sizeTab; x += size){
-    for(let y = 0; y < sizeTab; y += size){
-      const last = size - 1;
-      t[x + last / 2][y + last / 2] = Math.round((t[x][y] + t[x][y + last] + t[x + last][y] + t[x + last][y + last]) / 4)
-      //TODO: rajouter le random
+function diamant(id, tabSize, t){
+  for(let x = id; x < tabSize; x += i){
+    for(let y = id; y < tabSize; y += i){
+      t[x][y] = (t[x - id][y - id] + t[x - id][y + id] + t[x + id][y + id] + t[x + id][y - id]) / 4
     }
   }
 }
 
-function carre(t, sizeTab, size){
+function carre(){
   
+
 }
 
 

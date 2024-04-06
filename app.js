@@ -13,8 +13,7 @@ function setup(){
 
   // t = Array.from({length: size}, () => Array.from({length: size}, () => rand(0, maxValue)));
   t = diamantCarre(size, 0, maxValue);
-  
-  console.log(tileSize)
+
   for(let x = 0; x < size; x++){
     for(let y = 0; y < size; y++){
       fill(t[x][y] / maxValue * 255);
