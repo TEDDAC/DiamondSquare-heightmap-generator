@@ -92,7 +92,7 @@ function normalize(t, maxValue){
   if(min !== 0 || max != maxValue){
     for(let x = 0; x < t.length; x++){
       for(let y = 0; y < t.length; y++){
-        t[x][y] = Math.floor(maxValue * (t[x][y] - min) / (max - min + 2))
+        t[x][y] = Math.floor(maxValue * (t[x][y] - min) / (max - min + 2)) // + 2 pour augmenter un peu le nombre de valeur maximal possible, et donc diminuer la valeur minimale. Sans ça y'a pas de neige quoi.
       }
     }
   }

@@ -1,6 +1,6 @@
-const n = 256;
+const n = 128;
 const size = 2*n+1;
-const canvasSize = size;
+const canvasSize = size * 2;
 const tileSize = canvasSize / size;
 
 const maxValue = 7;
@@ -13,7 +13,7 @@ function setup(){
 
   // t = Array.from({length: size}, () => Array.from({length: size}, () => rand(0, maxValue)));
   t = diamantCarre(size, 0, maxValue);
-  console.table(t)
+  //console.table(t)
 
   for(let x = 0; x < size; x++){
     for(let y = 0; y < size; y++){
