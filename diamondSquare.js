@@ -1,5 +1,3 @@
-let i;
-
 function diamantCarre(tabSize, minValue, maxValue){
   let t = initArray(tabSize, minValue, maxValue);
   
@@ -7,25 +5,61 @@ function diamantCarre(tabSize, minValue, maxValue){
   while(i > 1){
     let id = Math.floor(i / 2);
 
-    diamant(id, tabSize, t)
+    diamant(id, tabSize, t, i)
+    carre(id, tabSize, t, i)
 
     i = id
   }
 
+  normalize(t, maxValue)
+
   return t;
 }
 
-function diamant(id, tabSize, t){
+function diamant(id, tabSize, t, i){
   for(let x = id; x < tabSize; x += i){
     for(let y = id; y < tabSize; y += i){
-      t[x][y] = (t[x - id][y - id] + t[x - id][y + id] + t[x + id][y + id] + t[x + id][y - id]) / 4
+      let moyenne = (t[x - id][y - id] + t[x - id][y + id] + t[x + id][y + id] + t[x + id][y - id]) / 4
+      t[x][y] = Math.floor(moyenne + rand(-id, id));
     }
   }
 }
 
-function carre(){
-  
+function carre(id, tabSize, t){
+  let decallage = 0;
 
+  for(let x = 0; x < tabSize; x += id){
+    if(decallage === 0){
+      decallage = id;
+    } else {
+      decallage = 0;
+    }
+
+    for(let y = decallage; y < tabSize; y += i){
+      let somme = 0;
+      let n = 0;
+
+      if(x >= id){
+        somme += t[x - id][y];
+        n++;
+      }
+      if(x + id < tabSize){
+        somme += t[x + id][y];
+        n++
+      }
+      if(y >= id){
+        somme += t[x][y - id]
+        n++;
+      }
+      if(y + id < tabSize){
+        somme += t[x][y + id];
+        n++
+      }
+
+
+      t[x][y] = Math.floor(somme / n + rand(-id, id));
+    }
+  }
 }
 
 
@@ -40,72 +74,29 @@ function initArray(size, minValue, maxValue){
   return t;
 }
 
+function normalize(t, maxValue){
+  let min = 0;
+  let max = maxValue;
 
+  for(let x = 0; x < t.length; x++){
+    for(let y = 0; y < t.length; y++){
+      if(t[x][y] > max){
+        max = t[x][y];
+      }
+      if(t[x][y] < min){
+        min = t[x][y];
+      }
+    }
+  }
 
-
-
-
-/**
- * Cette fonction est juste fail
- * @param {*} n 
- * @returns 
- */
-// function diamantCarre(n){
-//   /*let t = new Array(size).fill(0)
-//   t.forEach((value, index) => t[index] = new Array(size).fill(0))*/
-//   let t = Array.from({length: 2*n+1}, () => Array.from({length: 2*n+1}, () => 0));
-//   let h = t.length;
-
-//   t[0][0] = rand(-h,h);
-//   t[0][h-1] = rand(-h,h);
-//   t[h-1][h-1] = rand(-h,h);
-//   t[h-1][0] = rand(-h,h);
-
-//   let i = h-1
-//   while (i > 1){
-//     let id = Math.round(i/2) // pas
-
-//     for(let x = id; x < h; x+=i){
-//       for(let y = id; y < h; y+=i){
-//         let moyenne = (t[x-id][y-id] + t[x-id][y+id] + t[x+id][y+id] + t[x+id][y-id]) / 4;
-//         t[x][y] = moyenne + rand(-id, id);
-//       }
-//     }
-//     let decallage = 0;
-//     for(let x = 0; x < h; x+=id){
-//       if(decallage == 0){
-//         decallage = id;
-//       } else {
-//         decallage = 0;
-//       }
-
-//       for(let y = decallage; y < h; y+=i){
-//         let somme = 0;
-//         let n = 0;
-//         if(x >= id){
-//           somme = somme + t[x - id][y];
-//           n += 1;
-//         }
-//         if(x + id < h){
-//           somme = somme + t[x + id][y];
-//           n += 1;
-//         }
-//         if(y >= id){
-//           somme = somme + t[x][y - id];
-//           n += 1;
-//         }
-//         if(y + id < h){
-//           somme = somme + t[x][y + id];
-//           n += 1;
-//         }
-//         t[x][y] = (somme / n) + rand(-id, id);
-//       }
-//     }
-//     i = id;
-//   }
-
-//   return t;
-// }
+  if(min !== 0 || max != maxValue){
+    for(let x = 0; x < t.length; x++){
+      for(let y = 0; y < t.length; y++){
+        t[x][y] = Math.floor(maxValue * (t[x][y] - min) / (max - min + 2))
+      }
+    }
+  }
+}
 
 function rand(min, max) {
   return Math.round(Math.random() * (max - min) + min);
