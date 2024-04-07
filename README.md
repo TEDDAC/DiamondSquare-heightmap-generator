@@ -7,3 +7,5 @@ I had to add normalization to make the array resulting usable.
 Click [here](https://teddac.github.io/DiamondSquare-heightmap-generator) to have a demo.
 
 ![screenshot](screenshot.png)
+![screenshot](screenshot2.png)
+![screenshot](screenshot3.png)
